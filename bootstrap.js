@@ -56,6 +56,8 @@ function startup(data,reason) {
     
 //    myModule.startup();  // Do whatever initial startup stuff you need to do
 
+//  document.loadOverlay("chrome://tbsortfolders/content/overlay.xul",null);
+
     forEachOpenWindow(loadIntoWindow);
     Services.wm.addListener(WindowListener);
 }
