@@ -49,7 +49,9 @@ function getPref(key) {
 }
 
 function startup(data,reason) {
-    
+    Components.utils.import("chrome://tbsortfolders/content/ui.js");
+    Components.utils.import("chrome://tbsortfolders/content/folderPane.js");
+ 
     setDefaultPrefs();
     
 //    myModule.startup();  // Do whatever initial startup stuff you need to do
