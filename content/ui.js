@@ -1,3 +1,5 @@
+var EXPORTED_SYMBOLS = [];
+
 const Cc = Components.classes;
 const Ci = Components.interfaces;
 const Cu = Components.utils;
@@ -416,7 +418,7 @@ function on_refresh() {
   mainWindow.gFolderTreeView.mode = mainWindow.gFolderTreeView.mode;
 }
 
-window.addEventListener("unload", on_refresh, false);
+//window.addEventListener("unload", on_refresh, false);
 
 
 /* The functions below are for *account* sorting */

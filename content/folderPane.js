@@ -1,3 +1,4 @@
+var EXPORTED_SYMBOLS = [];
 
 (function () {
   /* For folder sorting */
@@ -77,12 +78,12 @@
     tblog.debug("Stored accounts: "+tbsf_accounts);
 */
   };
-  var observer_foldertree = new MutationObserver(callback_foldertree);
+  var observer_foldertree = new mainWindow.MutationObserver(callback_foldertree);
   observer_foldertree.observe(mainWindow.document.getElementById('folderTree'),config);
 
 //  observer_foldertree.disconnect();
 
-  sortFolderItems = function (aFtvItems) {
+  var sortFolderItems = function (aFtvItems) {
     if (!aFtvItems.length)
       return;
 
@@ -155,16 +156,16 @@
 
 
   /* For default startup folder */
-  let oldRestoreTab = mailTabType.modes.folder.restoreTab;
+  let oldRestoreTab = mainWindow.mailTabType.modes.folder.restoreTab;
   let inRestoreTab = false;
-  mailTabType.modes.folder.restoreTab = function (x, y) {
+  mainWindow.mailTabType.modes.folder.restoreTab = function (x, y) {
     inRestoreTab = true;
     oldRestoreTab.call(this, x, y);
     inRestoreTab = false;
   };
-  let oldSelectFolder = gFolderTreeView.selectFolder;
+  let oldSelectFolder = mainWindow.gFolderTreeView.selectFolder;
   let firstRun = true;
-  gFolderTreeView.selectFolder = function (x, y) {
+  mainWindow.gFolderTreeView.selectFolder = function (x, y) {
     if (firstRun && inRestoreTab) {
       let startup_folder = tbsf_prefs.getStringPref("startup_folder");
       if (startup_folder != "") {
