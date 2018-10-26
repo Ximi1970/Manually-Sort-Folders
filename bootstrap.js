@@ -58,6 +58,9 @@ function startup(data,reason) {
     
 //    myModule.startup();  // Do whatever initial startup stuff you need to do
 
+//  var xulDoc = Components.classes["@mozilla.org/xul/xul-document;1"].createInstance(Components.interfaces.nsIDOMXULDocument);
+//    xulDoc.loadOverlay("chrome://browser/content/",null);
+    
 //  document.loadOverlay("chrome://tbsortfolders/content/overlay.xul",null);
 
     forEachOpenWindow(loadIntoWindow);
