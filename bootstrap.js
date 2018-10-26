@@ -49,7 +49,7 @@ function getPref(key) {
 }
 
 function startup(data,reason) {
-    tblog_bootstrap.debug("Boostrap startup");
+    tblog_bootstrap.debug("Bootstrap startup");
 
 //    Components.utils.import("chrome://tbsortfolders/content/ui.js");
 //    Components.utils.import("chrome://tbsortfolders/content/folderPane.js");
@@ -63,11 +63,11 @@ function startup(data,reason) {
     forEachOpenWindow(loadIntoWindow);
     Services.wm.addListener(WindowListener);
     
-    tblog_bootstrap.debug("Boostrap startup done");
+    tblog_bootstrap.debug("Bootstrap startup done");
 }
 
 function shutdown(data,reason) {
-    tblog_bootstrap.debug("Boostrap shutdown");
+    tblog_bootstrap.debug("Bootstrap shutdown");
 
     if (reason == APP_SHUTDOWN)
         return;
@@ -81,30 +81,58 @@ function shutdown(data,reason) {
     //               in order to fully update images and locales, their caches need clearing here
     Services.obs.notifyObservers(null, "chrome-flush-caches", null);
 
-    tblog_bootstrap.debug("Boostrap shutdown done");
+    tblog_bootstrap.debug("Bootstrap shutdown done");
 }
 
 function install(data,reason) {
-    tblog_bootstrap.debug("Boostrap install");
+    tblog_bootstrap.debug("Bootstrap install");
 }
 
 function uninstall(data,reason) {
-    tblog_bootstrap.debug("Boostrap uninstall");
+    tblog_bootstrap.debug("Bootstrap uninstall");
 }
 
 function loadIntoWindow(window) {
 /* call/move your UI construction function here */
-    tblog_bootstrap.debug("Boostrap loadIntoWindow");
+    tblog_bootstrap.debug("Bootstrap loadIntoWindow");
+    
+    if (!window) {
+        return;
+    }
+
+    
+    tblog_bootstrap.debug("Window: "+window);
+
+    var doc = window.document.getElementById("messengerWindow");
+    tblog_bootstrap.debug("Doc: "+doc);
+        
+    var s = window.document.createElement("script");
+    s.type = "application/javascript";
+    s.src = "folderPane.js";
+    
+    doc.appendChild(s);
+
+    
+    
+    tblog_bootstrap.debug("Bootstrap loadIntoWindow done");
 }
 
 function unloadFromWindow(window) {
 /* call/move your UI tear down function here */
-    tblog_bootstrap.debug("Boostrap unloadIntoWindow");
+    tblog_bootstrap.debug("Bootstrap unloadIntoWindow");
+    
+    if (!window) {
+        return;
+    }
+    
+    
+    
+    tblog_bootstrap.debug("Bootstrap unloadIntoWindow done");
 }
 
 function forEachOpenWindow(todo)  // Apply a function to all open browser windows
 {
-    var windows = Services.wm.getEnumerator("navigator:browser");
+    var windows = Services.wm.getEnumerator("mail:3pane");
     while (windows.hasMoreElements())
         todo(windows.getNext().QueryInterface(Components.interfaces.nsIDOMWindow));
 }
@@ -113,6 +141,8 @@ var WindowListener =
 {
     onOpenWindow: function(xulWindow)
     {
+        tblog_listener.debug("Listener onOpenWindow");
+
         Components.utils.import("resource://tbsortfolders/logging.jsm");
         let tblog_listener = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
 
@@ -121,12 +151,12 @@ var WindowListener =
         function onWindowLoad()
         {
             window.removeEventListener("load",onWindowLoad);
-            if (window.document.documentElement.getAttribute("windowtype") == "navigator:browser")
+            if (window.document.documentElement.getAttribute("windowtype") == "mail:3pane")
                 loadIntoWindow(window);
         }
         window.addEventListener("load",onWindowLoad);
         
-        tblog_listener.debug("Listener onOpenWindow");
+        tblog_listener.debug("Listener onOpenWindow done");
     },
     onCloseWindow: function(xulWindow) {
         Components.utils.import("resource://tbsortfolders/logging.jsm");
