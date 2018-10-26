@@ -1,9 +1,9 @@
 // https://flagfox.wordpress.com/2014/01/19/writing-restartless-addons/
 
-
-
 Components.utils.import("resource://gre/modules/Services.jsm");
 
+Components.utils.import("resource://tbsortfolders/logging.jsm");
+var tblog_bootstrap = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
 
 const PREF_BRANCH = "extensions.tbsortfolders@xulforum.org.";
 const PREFS = {
@@ -49,8 +49,10 @@ function getPref(key) {
 }
 
 function startup(data,reason) {
-    Components.utils.import("chrome://tbsortfolders/content/ui.js");
-    Components.utils.import("chrome://tbsortfolders/content/folderPane.js");
+    tblog_bootstrap.debug("Boostrap startup");
+
+//    Components.utils.import("chrome://tbsortfolders/content/ui.js");
+//    Components.utils.import("chrome://tbsortfolders/content/folderPane.js");
  
     setDefaultPrefs();
     
@@ -60,9 +62,13 @@ function startup(data,reason) {
 
     forEachOpenWindow(loadIntoWindow);
     Services.wm.addListener(WindowListener);
+    
+    tblog_bootstrap.debug("Boostrap startup done");
 }
 
 function shutdown(data,reason) {
+    tblog_bootstrap.debug("Boostrap shutdown");
+
     if (reason == APP_SHUTDOWN)
         return;
 
@@ -74,18 +80,26 @@ function shutdown(data,reason) {
     // HACK WARNING: The Addon Manager does not properly clear all addon related caches on update;
     //               in order to fully update images and locales, their caches need clearing here
     Services.obs.notifyObservers(null, "chrome-flush-caches", null);
+
+    tblog_bootstrap.debug("Boostrap shutdown done");
 }
 
-function install(data,reason) { }
+function install(data,reason) {
+    tblog_bootstrap.debug("Boostrap install");
+}
 
-function uninstall(data,reason) { }
+function uninstall(data,reason) {
+    tblog_bootstrap.debug("Boostrap uninstall");
+}
 
 function loadIntoWindow(window) {
 /* call/move your UI construction function here */
+    tblog_bootstrap.debug("Boostrap loadIntoWindow");
 }
 
 function unloadFromWindow(window) {
 /* call/move your UI tear down function here */
+    tblog_bootstrap.debug("Boostrap unloadIntoWindow");
 }
 
 function forEachOpenWindow(todo)  // Apply a function to all open browser windows
@@ -99,6 +113,9 @@ var WindowListener =
 {
     onOpenWindow: function(xulWindow)
     {
+        Components.utils.import("resource://tbsortfolders/logging.jsm");
+        let tblog_listener = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
+
         var window = xulWindow.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                               .getInterface(Components.interfaces.nsIDOMWindow);
         function onWindowLoad()
@@ -108,7 +125,19 @@ var WindowListener =
                 loadIntoWindow(window);
         }
         window.addEventListener("load",onWindowLoad);
+        
+        tblog_listener.debug("Listener onOpenWindow");
     },
-    onCloseWindow: function(xulWindow) { },
-    onWindowTitleChange: function(xulWindow, newTitle) { }
+    onCloseWindow: function(xulWindow) {
+        Components.utils.import("resource://tbsortfolders/logging.jsm");
+        let tblog_listener = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
+
+        tblog_listener.debug("Listener onCloseWindow");
+    },
+    onWindowTitleChange: function(xulWindow, newTitle) {
+        Components.utils.import("resource://tbsortfolders/logging.jsm");
+        let tblog_listener = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
+
+        tblog_listener.debug("Listener onWindowTitleChange");
+    }
 };
