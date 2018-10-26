@@ -141,10 +141,10 @@ var WindowListener =
 {
     onOpenWindow: function(xulWindow)
     {
-        tblog_listener.debug("Listener onOpenWindow");
-
         Components.utils.import("resource://tbsortfolders/logging.jsm");
         let tblog_listener = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
+
+        tblog_listener.debug("Listener onOpenWindow");
 
         var window = xulWindow.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                               .getInterface(Components.interfaces.nsIDOMWindow);
