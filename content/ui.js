@@ -453,7 +453,10 @@ function accounts_on_load() {
   let other_accounts = [];
   let add_li = function (list, [account, server, type, name]) {
     let li = document.createElement("richlistitem");
-    li.setAttribute("label", name);
+    let desc = document.createElement("description");
+    let txt = document.createTextNode(name); 
+    desc.appendChild(txt);
+    li.appendChild(desc);
     li.value = account;
     list.appendChild(li);
   };
