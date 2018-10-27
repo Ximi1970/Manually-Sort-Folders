@@ -2,6 +2,14 @@
 
 Components.utils.import("resource://gre/modules/Services.jsm");
 
+Components.utils.import("resource://gre/modules/Log.jsm");
+var log_bootstrap = Log.repository.getLogger("tbsortfolders.bootstrap");
+
+log_bootstrap.level = Log.Level.Debug;
+
+log_bootstrap.addAppender(new Log.ConsoleAppender(new Log.BasicFormatter()));
+log_bootstrap.addAppender(new Log.DumpAppender(new Log.BasicFormatter()));
+
 const PREF_BRANCH = "extensions.tbsortfolders@xulforum.org.";
 const PREFS = {
   tbsf_data: '{}',
@@ -46,32 +54,28 @@ function getPref(key) {
 }
 
 function startup(data,reason) {
-  Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
-  var tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
-  tblog.debug("Bootstrap startup");
+  log_bootstrap.debug("Bootstrap startup");
 
-//    Components.utils.import("chrome://tbsortfolders/content/ui.js");
-//    Components.utils.import("chrome://tbsortfolders/content/folderPane.js");
+//  Components.utils.import("chrome://tbsortfolders/content/ui.js");
+//  Components.utils.import("chrome://tbsortfolders/content/folderPane.js");
  
-    setDefaultPrefs();
+  setDefaultPrefs();
     
-//    myModule.startup();  // Do whatever initial startup stuff you need to do
+//  myModule.startup();  // Do whatever initial startup stuff you need to do
 
 //  var xulDoc = Components.classes["@mozilla.org/xul/xul-document;1"].createInstance(Components.interfaces.nsIDOMXULDocument);
 //    xulDoc.loadOverlay("chrome://browser/content/",null);
     
 //  document.loadOverlay("chrome://tbsortfolders/content/overlay.xul",null);
 
-    forEachOpenWindow(loadIntoWindow);
-    Services.wm.addListener(WindowListener);
+  forEachOpenWindow(loadIntoWindow);
+  Services.wm.addListener(WindowListener);
     
-    tblog.debug("Bootstrap startup done");
+  log_bootstrap.debug("Bootstrap startup done");
 }
 
 function shutdown(data,reason) {
-  Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
-  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
-  tblog.debug("Bootstrap shutdown");
+  log_bootstrap.debug("Bootstrap shutdown");
 
   if (reason == APP_SHUTDOWN)
     return;
@@ -85,7 +89,7 @@ function shutdown(data,reason) {
   //               in order to fully update images and locales, their caches need clearing here
   Services.obs.notifyObservers(null, "chrome-flush-caches", null);
 
-  tblog.debug("Bootstrap shutdown done");
+  log_bootstrap.debug("Bootstrap shutdown done");
 }
 
 function install(data,reason) {
@@ -95,9 +99,7 @@ function uninstall(data,reason) {
 }
 
 function loadIntoWindow(window) {
-  Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
-  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
-  tblog.debug("Bootstrap loadIntoWindow");
+  log_bootstrap.debug("Bootstrap loadIntoWindow");
 
   /* call/move your UI construction function here */
     
@@ -106,10 +108,10 @@ function loadIntoWindow(window) {
   }
 
     
-  tblog.debug("Window: "+window);
+  log_bootstrap.debug("Window: "+window);
 
   var doc = window.document.getElementById("messengerWindow");
-  tblog.debug("Doc: "+doc);
+  log_bootstrap.debug("Doc: "+doc);
         
   var s = window.document.createElement("script");
   s.type = "application/javascript";
@@ -118,22 +120,19 @@ function loadIntoWindow(window) {
   doc.appendChild(s);
 
     
-  tblog.debug("Bootstrap loadIntoWindow done");
+  log_bootstrap.debug("Bootstrap loadIntoWindow done");
 }
 
 function unloadFromWindow(window) {
-  Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
-  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
+  log_bootstrap.debug("Bootstrap unloadIntoWindow");
 
   /* call/move your UI tear down function here */
-
-  tblog.debug("Bootstrap unloadIntoWindow");
     
   if (!window) {
     return;
   }
     
-  tblog.debug("Bootstrap unloadIntoWindow done");
+  log_bootstrap.debug("Bootstrap unloadIntoWindow done");
 }
 
 function forEachOpenWindow(todo)  // Apply a function to all open browser windows
@@ -147,10 +146,7 @@ var WindowListener =
 {
   onOpenWindow: function(xulWindow)
   {
-    Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
-    let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
-
-    tblog.debug("Listener onOpenWindow");
+    log_bootstrap.debug("Listener onOpenWindow");
 
     var window = xulWindow.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                           .getInterface(Components.interfaces.nsIDOMWindow);
@@ -162,18 +158,12 @@ var WindowListener =
     }
     window.addEventListener("load",onWindowLoad);
     
-    tblog.debug("Listener onOpenWindow done");
+    log_bootstrap.debug("Listener onOpenWindow done");
   },
   onCloseWindow: function(xulWindow) {
-    Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
-    let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
-
-    tblog.debug("Listener onCloseWindow");
+    log_bootstrap.debug("Listener onCloseWindow");
   },
   onWindowTitleChange: function(xulWindow, newTitle) {
-    Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
-    let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
-
-    tblog.debug("Listener onWindowTitleChange");
+    log_bootstrap.debug("Listener onWindowTitleChange");
   }
 };
