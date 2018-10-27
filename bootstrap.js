@@ -2,9 +2,6 @@
 
 Components.utils.import("resource://gre/modules/Services.jsm");
 
-Components.utils.import("resource://tbsortfolders/logging.jsm");
-var tblog_bootstrap = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
-
 const PREF_BRANCH = "extensions.tbsortfolders@xulforum.org.";
 const PREFS = {
   tbsf_data: '{}',
@@ -49,9 +46,9 @@ function getPref(key) {
 }
 
 function startup(data,reason) {
-  Components.utils.import("resource://tbsortfolders/logging.jsm");
+  Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
   var tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
-  tblog_bootstrap.debug("Bootstrap startup");
+  tblog.debug("Bootstrap startup");
 
 //    Components.utils.import("chrome://tbsortfolders/content/ui.js");
 //    Components.utils.import("chrome://tbsortfolders/content/folderPane.js");
@@ -72,7 +69,7 @@ function startup(data,reason) {
 }
 
 function shutdown(data,reason) {
-  Components.utils.import("resource://tbsortfolders/logging.jsm");
+  Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
   let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
   tblog.debug("Bootstrap shutdown");
 
@@ -92,19 +89,13 @@ function shutdown(data,reason) {
 }
 
 function install(data,reason) {
-  Components.utils.import("resource://tbsortfolders/logging.jsm");
-  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
-  tblog.debug("Bootstrap install");
 }
 
 function uninstall(data,reason) {
-  Components.utils.import("resource://tbsortfolders/logging.jsm");
-  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
-  tblog.debug("Bootstrap uninstall");
 }
 
 function loadIntoWindow(window) {
-  Components.utils.import("resource://tbsortfolders/logging.jsm");
+  Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
   let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
   tblog.debug("Bootstrap loadIntoWindow");
 
@@ -131,7 +122,7 @@ function loadIntoWindow(window) {
 }
 
 function unloadFromWindow(window) {
-  Components.utils.import("resource://tbsortfolders/logging.jsm");
+  Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
   let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
 
   /* call/move your UI tear down function here */
@@ -147,42 +138,42 @@ function unloadFromWindow(window) {
 
 function forEachOpenWindow(todo)  // Apply a function to all open browser windows
 {
-    var windows = Services.wm.getEnumerator("mail:3pane");
-    while (windows.hasMoreElements())
-        todo(windows.getNext().QueryInterface(Components.interfaces.nsIDOMWindow));
+  var windows = Services.wm.getEnumerator("mail:3pane");
+  while (windows.hasMoreElements())
+    todo(windows.getNext().QueryInterface(Components.interfaces.nsIDOMWindow));
 }
 
 var WindowListener =
 {
-    onOpenWindow: function(xulWindow)
+  onOpenWindow: function(xulWindow)
+  {
+    Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
+    let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
+
+    tblog.debug("Listener onOpenWindow");
+
+    var window = xulWindow.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                          .getInterface(Components.interfaces.nsIDOMWindow);
+    function onWindowLoad()
     {
-        Components.utils.import("resource://tbsortfolders/logging.jsm");
-        let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
-
-        tblog.debug("Listener onOpenWindow");
-
-        var window = xulWindow.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                              .getInterface(Components.interfaces.nsIDOMWindow);
-        function onWindowLoad()
-        {
-            window.removeEventListener("load",onWindowLoad);
-            if (window.document.documentElement.getAttribute("windowtype") == "mail:3pane")
-                loadIntoWindow(window);
-        }
-        window.addEventListener("load",onWindowLoad);
-        
-        tblog.debug("Listener onOpenWindow done");
-    },
-    onCloseWindow: function(xulWindow) {
-        Components.utils.import("resource://tbsortfolders/logging.jsm");
-        let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
-
-        tblog.debug("Listener onCloseWindow");
-    },
-    onWindowTitleChange: function(xulWindow, newTitle) {
-        Components.utils.import("resource://tbsortfolders/logging.jsm");
-        let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
-
-        tblog.debug("Listener onWindowTitleChange");
+        window.removeEventListener("load",onWindowLoad);
+        if (window.document.documentElement.getAttribute("windowtype") == "mail:3pane")
+            loadIntoWindow(window);
     }
+    window.addEventListener("load",onWindowLoad);
+    
+    tblog.debug("Listener onOpenWindow done");
+  },
+  onCloseWindow: function(xulWindow) {
+    Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
+    let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
+
+    tblog.debug("Listener onCloseWindow");
+  },
+  onWindowTitleChange: function(xulWindow, newTitle) {
+    Components.utils.import("chrome://tbsortfolders/content/modules/logging.jsm");
+    let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
+
+    tblog.debug("Listener onWindowTitleChange");
+  }
 };

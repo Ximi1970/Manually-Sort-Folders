@@ -5,8 +5,8 @@ const Ci = Components.interfaces;
 const Cu = Components.utils;
 
 Cu.import("resource://gre/modules/Services.jsm");
-Cu.import("resource://tbsortfolders/logging.jsm");
-Cu.import("resource://tbsortfolders/sort.jsm");
+Cu.import("chrome://tbsortfolders/content/modules/logging.jsm");
+Cu.import("chrome://tbsortfolders/content/modules/sort.jsm");
 Cu.import("resource:///modules/MailUtils.js");
 Cu.import("resource:///modules/iteratorUtils.jsm"); // for fixIterator
 

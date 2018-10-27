@@ -59,7 +59,7 @@ tbsortfolders.Logging = {
     ["resource://gre/modules/Log.jsm",           // FF 27+
      "resource://services-common/log4moz.js",    // FF
      "resource:///app/modules/gloda/log4moz.js", // TB
-     "resource://tbsortfolders/log4moz.js"]           // default
+     "chrome://tbsortfolders/content/modules/log4moz.js"]           // default
       .forEach(function(file){
         try {Cu.import(file);} catch(x) {}
       }, this);

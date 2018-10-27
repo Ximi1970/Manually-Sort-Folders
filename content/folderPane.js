@@ -7,11 +7,11 @@ var EXPORTED_SYMBOLS = [];
   const Ci = Components.interfaces;
   const Cu = Components.utils;
 
-  Cu.import("resource://tbsortfolders/logging.jsm");
+  Cu.import("chrome://tbsortfolders/content/modules/logging.jsm");
   let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.folderpane");
 
   Cu.import("resource://gre/modules/Services.jsm");
-  Cu.import("resource://tbsortfolders/sort.jsm");
+  Cu.import("chrome://tbsortfolders/content/modules/sort.jsm");
   Cu.import("resource:///modules/MailUtils.js");
 
   tblog.debug("Init");
