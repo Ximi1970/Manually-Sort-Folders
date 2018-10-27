@@ -246,6 +246,12 @@ function walk_folder(folder,treechildren,depth) {
 
 function on_load() {
   tblog.debug("on_load");
+  
+  if (Services.appinfo.version >= 61.0) {
+    document.getElementById("folders").hidden = true;
+    document.getElementById("extra").hidden = true;
+  }
+  
   let json = tbsf_prefs.getStringPref("tbsf_data");
   try {
     tbsf_data = JSON.parse(json);
