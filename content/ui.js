@@ -249,8 +249,8 @@ function on_load() {
   
 //  if (Services.appinfo.version >= 61.0) {
     // Not working for now...
-    document.getElementById("folders").hidden = true;
-    document.getElementById("extra").hidden = true;
+//    document.getElementById("folders").hidden = true;
+//    document.getElementById("extra").hidden = true;
 //  }
   
   let json = tbsf_prefs.getStringPref("tbsf_data");
