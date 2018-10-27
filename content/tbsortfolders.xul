@@ -14,9 +14,9 @@
 
   <tabbox selectedIndex="0" flex="1">
     <tabs>
-      <tab><label value="&tab.accounts;" /></tab>
-      <tab><label value="&tab.folders;"/></tab>
-      <tab><label value="&tab.extra;" /></tab>
+      <tab id="accounts"><label value="&tab.accounts;" /></tab>
+      <tab id="folders"><label value="&tab.folders;"/></tab>
+      <tab id="extra"><label value="&tab.extra;" /></tab>
     </tabs>
     <tabpanels flex="1">
       <tabpanel orient="vertical">
