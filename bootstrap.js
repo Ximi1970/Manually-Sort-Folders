@@ -56,6 +56,9 @@ function getPref(key) {
 function startup(data,reason) {
   log_bootstrap.debug("Bootstrap startup");
 
+  log_bootstrap.debug("Appinfo ABI: "+Services.appinfo.XPCOMABI);
+  log_bootstrap.debug("Appinfo TB version: "+Services.appinfo.version);
+    
 //  Components.utils.import("chrome://tbsortfolders/content/ui.js");
 //  Components.utils.import("chrome://tbsortfolders/content/folderPane.js");
  

@@ -6,10 +6,14 @@ const Cu = Components.utils;
 
 Cu.import("resource://gre/modules/Services.jsm");
 Cu.import("chrome://tbsortfolders/content/modules/sort.jsm");
-Cu.import("resource:///modules/MailUtils.js");
 Cu.import("resource:///modules/iteratorUtils.jsm"); // for fixIterator
-
+if (Services.appinfo.version >= 64.0) {
+  Cu.import("resource:///modules/MailUtils.jsm");
+} else {
+  Cu.import("resource:///modules/MailUtils.js");
+}
 Cu.import("resource://gre/modules/Log.jsm");
+
 let tblog = Log.repository.getLogger("tbsortfolders.ui");
 
 tblog.level = Log.Level.Debug;
