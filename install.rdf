@@ -6,6 +6,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>tbsortfolders@xulforum.org</em:id>
+    <em:bootstrap>true</em:bootstrap>
     <em:version>1.2.0pre3</em:version>
     <em:iconURL>chrome://tbsortfolders/content/icon.png</em:iconURL>
     <em:name>Manually sort folders</em:name>
