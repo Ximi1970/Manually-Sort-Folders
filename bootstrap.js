@@ -49,7 +49,9 @@ function getPref(key) {
 }
 
 function startup(data,reason) {
-    tblog_bootstrap.debug("Bootstrap startup");
+  Components.utils.import("resource://tbsortfolders/logging.jsm");
+  var tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
+  tblog_bootstrap.debug("Bootstrap startup");
 
 //    Components.utils.import("chrome://tbsortfolders/content/ui.js");
 //    Components.utils.import("chrome://tbsortfolders/content/folderPane.js");
@@ -66,71 +68,81 @@ function startup(data,reason) {
     forEachOpenWindow(loadIntoWindow);
     Services.wm.addListener(WindowListener);
     
-    tblog_bootstrap.debug("Bootstrap startup done");
+    tblog.debug("Bootstrap startup done");
 }
 
 function shutdown(data,reason) {
-    tblog_bootstrap.debug("Bootstrap shutdown");
+  Components.utils.import("resource://tbsortfolders/logging.jsm");
+  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
+  tblog.debug("Bootstrap shutdown");
 
-    if (reason == APP_SHUTDOWN)
-        return;
+  if (reason == APP_SHUTDOWN)
+    return;
 
-    forEachOpenWindow(unloadFromWindow);
-    Services.wm.removeListener(WindowListener);
+  forEachOpenWindow(unloadFromWindow);
+  Services.wm.removeListener(WindowListener);
 
 //    myModule.shutdown();  // Do whatever shutdown stuff you need to do on addon disable
 
-    // HACK WARNING: The Addon Manager does not properly clear all addon related caches on update;
-    //               in order to fully update images and locales, their caches need clearing here
-    Services.obs.notifyObservers(null, "chrome-flush-caches", null);
+  // HACK WARNING: The Addon Manager does not properly clear all addon related caches on update;
+  //               in order to fully update images and locales, their caches need clearing here
+  Services.obs.notifyObservers(null, "chrome-flush-caches", null);
 
-    tblog_bootstrap.debug("Bootstrap shutdown done");
+  tblog.debug("Bootstrap shutdown done");
 }
 
 function install(data,reason) {
-    tblog_bootstrap.debug("Bootstrap install");
+  Components.utils.import("resource://tbsortfolders/logging.jsm");
+  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
+  tblog.debug("Bootstrap install");
 }
 
 function uninstall(data,reason) {
-    tblog_bootstrap.debug("Bootstrap uninstall");
+  Components.utils.import("resource://tbsortfolders/logging.jsm");
+  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
+  tblog.debug("Bootstrap uninstall");
 }
 
 function loadIntoWindow(window) {
-/* call/move your UI construction function here */
-    tblog_bootstrap.debug("Bootstrap loadIntoWindow");
+  Components.utils.import("resource://tbsortfolders/logging.jsm");
+  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
+  tblog.debug("Bootstrap loadIntoWindow");
+
+  /* call/move your UI construction function here */
     
-    if (!window) {
-        return;
-    }
+  if (!window) {
+    return;
+  }
 
     
-    tblog_bootstrap.debug("Window: "+window);
+  tblog.debug("Window: "+window);
 
-    var doc = window.document.getElementById("messengerWindow");
-    tblog_bootstrap.debug("Doc: "+doc);
+  var doc = window.document.getElementById("messengerWindow");
+  tblog.debug("Doc: "+doc);
         
-    var s = window.document.createElement("script");
-    s.type = "application/javascript";
-    s.src = "folderPane.js";
+  var s = window.document.createElement("script");
+  s.type = "application/javascript";
+  s.src = "folderPane.js";
     
-    doc.appendChild(s);
+  doc.appendChild(s);
 
     
-    
-    tblog_bootstrap.debug("Bootstrap loadIntoWindow done");
+  tblog.debug("Bootstrap loadIntoWindow done");
 }
 
 function unloadFromWindow(window) {
-/* call/move your UI tear down function here */
-    tblog_bootstrap.debug("Bootstrap unloadIntoWindow");
+  Components.utils.import("resource://tbsortfolders/logging.jsm");
+  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.bootstrap");
+
+  /* call/move your UI tear down function here */
+
+  tblog.debug("Bootstrap unloadIntoWindow");
     
-    if (!window) {
-        return;
-    }
+  if (!window) {
+    return;
+  }
     
-    
-    
-    tblog_bootstrap.debug("Bootstrap unloadIntoWindow done");
+  tblog.debug("Bootstrap unloadIntoWindow done");
 }
 
 function forEachOpenWindow(todo)  // Apply a function to all open browser windows
@@ -145,9 +157,9 @@ var WindowListener =
     onOpenWindow: function(xulWindow)
     {
         Components.utils.import("resource://tbsortfolders/logging.jsm");
-        let tblog_listener = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
+        let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
 
-        tblog_listener.debug("Listener onOpenWindow");
+        tblog.debug("Listener onOpenWindow");
 
         var window = xulWindow.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                               .getInterface(Components.interfaces.nsIDOMWindow);
@@ -159,18 +171,18 @@ var WindowListener =
         }
         window.addEventListener("load",onWindowLoad);
         
-        tblog_listener.debug("Listener onOpenWindow done");
+        tblog.debug("Listener onOpenWindow done");
     },
     onCloseWindow: function(xulWindow) {
         Components.utils.import("resource://tbsortfolders/logging.jsm");
-        let tblog_listener = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
+        let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
 
-        tblog_listener.debug("Listener onCloseWindow");
+        tblog.debug("Listener onCloseWindow");
     },
     onWindowTitleChange: function(xulWindow, newTitle) {
         Components.utils.import("resource://tbsortfolders/logging.jsm");
-        let tblog_listener = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
+        let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.listener");
 
-        tblog_listener.debug("Listener onWindowTitleChange");
+        tblog.debug("Listener onWindowTitleChange");
     }
 };
