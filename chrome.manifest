@@ -1,5 +1,4 @@
 content tbsortfolders content/
-resource tbsortfolders modules/
 locale tbsortfolders da locale/da/
 locale tbsortfolders de locale/de/
 locale tbsortfolders en-US locale/en-US/
