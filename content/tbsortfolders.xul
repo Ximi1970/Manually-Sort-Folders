@@ -28,7 +28,7 @@
             <richlistbox id="accounts_list" onclick="on_accounts_list_click();" flex="1">
             </richlistbox>
             <richlistbox rows="1" disabled="true">
-              <listitem label="&accountsort.localfolders;" />
+              <richlistitem label="&accountsort.localfolders;" />
             </richlistbox>
             <richlistbox flex="1" id="news_accounts_list" style="display: none;" onclick="on_news_accounts_list_click();">
             </richlistbox>

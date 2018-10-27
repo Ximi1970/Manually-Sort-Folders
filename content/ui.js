@@ -452,7 +452,7 @@ function accounts_on_load() {
   let news_accounts = [];
   let other_accounts = [];
   let add_li = function (list, [account, server, type, name]) {
-    let li = document.createElement("listitem");
+    let li = document.createElement("richlistitem");
     li.setAttribute("label", name);
     li.value = account;
     list.appendChild(li);
