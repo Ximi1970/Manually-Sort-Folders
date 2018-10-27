@@ -7,8 +7,13 @@ var EXPORTED_SYMBOLS = [];
   const Ci = Components.interfaces;
   const Cu = Components.utils;
 
-  Cu.import("chrome://tbsortfolders/content/modules/logging.jsm");
-  let tblog = tbsortfolders.Logging.getLogger("tbsortfolders.folderpane");
+  Cu.import("resource://gre/modules/Log.jsm");
+  var tblog = Log.repository.getLogger("tbsortfolders.folderpane");
+
+  tblog.level = Log.Level.Debug;
+
+  tblog.addAppender(new Log.ConsoleAppender(new Log.BasicFormatter()));
+  tblog.addAppender(new Log.DumpAppender(new Log.BasicFormatter()));
 
   Cu.import("resource://gre/modules/Services.jsm");
   Cu.import("chrome://tbsortfolders/content/modules/sort.jsm");
