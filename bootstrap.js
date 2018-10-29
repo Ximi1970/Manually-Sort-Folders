@@ -59,8 +59,7 @@ function startup(data,reason) {
   log_bootstrap.debug("Appinfo ABI: "+Services.appinfo.XPCOMABI);
   log_bootstrap.debug("Appinfo TB version: "+Services.appinfo.version);
     
-//  Components.utils.import("chrome://tbsortfolders/content/ui.js");
-//  Components.utils.import("chrome://tbsortfolders/content/folderPane.js");
+  Components.utils.import("chrome://tbsortfolders/content/ui.js");
  
   setDefaultPrefs();
     
@@ -71,6 +70,21 @@ function startup(data,reason) {
     
 //  document.loadOverlay("chrome://tbsortfolders/content/overlay.xul",null);
 
+//  log_bootstrap.debug("Window: "+window);
+
+//  var doc = window.document.getElementById("messengerWindow");
+//  log_bootstrap.debug("Doc: "+doc);
+        
+//  var s = window.document.createElement("script");
+//  s.type = "application/javascript";
+//  s.src = "folderPane.js";
+    
+//  doc.appendChild(s);
+
+  log_bootstrap.debug("Attach UI");
+  ui.attach();
+  log_bootstrap.debug("Attach UI done");
+ 
   forEachOpenWindow(loadIntoWindow);
   Services.wm.addListener(WindowListener);
     
@@ -88,6 +102,10 @@ function shutdown(data,reason) {
 
 //    myModule.shutdown();  // Do whatever shutdown stuff you need to do on addon disable
 
+  
+  Components.utils.unload("chrome://tbsortfolders/content/ui.js");
+
+  
   // HACK WARNING: The Addon Manager does not properly clear all addon related caches on update;
   //               in order to fully update images and locales, their caches need clearing here
   Services.obs.notifyObservers(null, "chrome-flush-caches", null);
@@ -109,19 +127,6 @@ function loadIntoWindow(window) {
   if (!window) {
     return;
   }
-
-    
-  log_bootstrap.debug("Window: "+window);
-
-  var doc = window.document.getElementById("messengerWindow");
-  log_bootstrap.debug("Doc: "+doc);
-        
-  var s = window.document.createElement("script");
-  s.type = "application/javascript";
-  s.src = "folderPane.js";
-    
-  doc.appendChild(s);
-
     
   log_bootstrap.debug("Bootstrap loadIntoWindow done");
 }
