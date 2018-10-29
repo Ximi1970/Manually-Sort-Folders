@@ -14,7 +14,7 @@ if (Services.appinfo.version >= 64.0) {
 }
 Cu.import("resource://gre/modules/Log.jsm");
 
-let tblog = Log.repository.getLogger("tbsortfolders.ui");
+let tblog = Log.repository.getLogger("tbsortfolders.options");
 
 tblog.level = Log.Level.Debug;
 
