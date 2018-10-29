@@ -73,8 +73,7 @@ Ui.prototype = {
     let menuItemAttrs = {
       insertafter: 'activityManager',
       id: 'tbsf_menu_item',
-      oncommand: "window.openDialog('chrome://tbsortfolders/content/', '',
-          'chrome=yes, modal=yes, dialog=no, resizable=yes');",
+      oncommand: "window.openDialog('chrome://tbsortfolders/content/', '', 'chrome=yes, modal=yes, dialog=no, resizable=yes');",
       label: '&tbsf.menuentry.label;'
     };
     
