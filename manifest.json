@@ -12,7 +12,7 @@
     }
   },
   "icons": {
-    "32": "content/icon.png"
+    "32": "content/icons/icon.png"
   },
   "options_ui": {
     "page": "content/options.html",
