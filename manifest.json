@@ -18,5 +18,13 @@
   "options_ui": {
     "page": "content/options.html",
     "open_in_tab": true
+  },
+   "browser_action": {
+    "browser_style": true,
+    "default_title": "Test",
+    "default_popup": "content/test.html",
+    "default_icon": {
+      "32": "content/icons/icon.png"
+    }
   }
 }
