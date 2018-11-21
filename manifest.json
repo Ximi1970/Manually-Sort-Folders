@@ -5,6 +5,10 @@
   "version": "2.0.0pre1",
   "author": "Jonathan Protzenko, Maxime Rijnders",
   "homepage_url": "http://wiki.github.com/protz/Manually-Sort-Folders/",
+  "options_ui": {
+    "page": "content/options.html",
+    "open_in_tab": true
+  },
   "applications": {
     "gecko": {
       "id": "tbsortfolders@xulforum.org",
