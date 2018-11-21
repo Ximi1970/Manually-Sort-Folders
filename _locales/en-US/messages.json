@@ -1,4 +1,14 @@
 {
+  "extensionname": {
+    "message": "Manually sort folders",
+    "description": "Extension name"
+  },
+
+  "extensiondescription": {
+    "message": "An extension that allows you to change the way Thunderbird sorts folders in the folder pane.",
+    "description": "Extension descriptions"
+  },
+
   "tbsf.menuentry.label": {
     "message": "Manually sort folders",
     "description": "Menu entry name"
@@ -89,12 +99,12 @@
     "description": "Account sort restart warning"
   },
 
-  "tab.accounts": {
+  "tabAccounts": {
     "message": "Sort accounts",
     "description": "Sort accounts"
   },
 
-  "tab.folders": {
+  "tabFolders": {
     "message": "Sort folders",
     "description": "Sort folders"
   },
@@ -144,7 +154,7 @@
     "description": "No account setup"
   },
 
-  "tab.extra": {
+  "tabExtra": {
     "message": "Extra settings",
     "description": "Extra settings"
   },
