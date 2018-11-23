@@ -15,6 +15,10 @@
     "32": "content/icons/icon.png"
   },
   "default_locale": "en-US",
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
   "options_ui": {
     "page": "content/options.html",
     "open_in_tab": true
